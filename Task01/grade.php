@@ -1,47 +1,38 @@
 <?php
 
+if ($_POST['grade']) {
+  
+  
+  $total = $_POST['grade'] * 5;
+  $precent_grade = $total * 100 / 250;
+
+  if($total <= 250 && $total >= 225){
+        $message = "A";
+    }elseif($total >= 200 && $total <= 224){
+        $message = "B";
+    }elseif($total >= 175 && $total <= 200){
+        $message = "C";
+    }elseif($total >= 150 && $total <= 175){
+      $message = "D";
+  }elseif($total >= 100 && $total <= 150){
+    $message = "E";
+}else{
+        $message = "F";
+    }
+    
+  
+  
+// echo $message;  
 
 
 
-
-
-
-if ($_POST) {
-
-  $total = $_POST['Physics'] + $_POST['Chemistry'] + $_POST['Biology'] + $_POST['Mathematics'] + $_POST['Computer'];
   if ($total >= 0 && $total <= 250) {
-    $precent_grade = $total * 100 / 250;
-    $precent = "";
+    
 
-  switch ($precent) {
-    case '90':
-       $grade = 'A';
-      break;
-
-    case '80':
-       $grade = 'B';
-      break;
-
-    case '70':
-       $grade = 'C';
-      break;
-
-    case '60':
-       $grade = 'D';
-      break;
-
-    case '40':
-       $grade = 'E';
-      break;
-
-    case '39':
-       $grade = 'F';
-      break;
-  }
 
 
     $res = "<div class='alert alert-success offset-2 mt-3 text-center'>
-            Your Grade is {$total} <br> Your precent is {$precent_grade}%  You are {$grade}
+            Your Degree is {$total} <br> Your precent is {$precent_grade}% <br/> You Grade Is {$message}
             </div>";
   } else {
     $res = "<div class='alert alert-warning offset-2 mt-3 text-center'>
@@ -82,41 +73,41 @@ if ($_POST) {
 
 
 
-        <form method="POST" name="Grade" class="row w-100 offset-1">
+        <form method="POST"  class="row w-100 offset-1">
           <div class="form-group col-4">
-            <label name="Grade" for="Physics">Physics</label>
-            <input type="text" name="Physics" id="Physics" class="form-control" placeholder="Physics" aria-describedby="helpId">
+            <label  for="Physics">Physics</label>
+            <input type="number" name="grade" id="Physics" class="form-control" placeholder="Physics" aria-describedby="helpId">
             <small id="helpId" class="text-muted">Physics</small>
           </div>
 
 
           <div class="form-group col-4">
-            <label name="Grade" for="Chemistry">Chemistry</label>
-            <input type="text" name="Chemistry" id="" class="form-control" placeholder="Chemistry" aria-describedby="helpId">
+            <label  for="Chemistry">Chemistry</label>
+            <input type="number" name="grade" id="" class="form-control" placeholder="Chemistry" aria-describedby="helpId">
             <small id="helpId" class="text-muted">Chemistry</small>
           </div>
 
 
           <div class="form-group col-4">
-            <label name="Grade" for="Biology">Biology</label>
-            <input type="text" name="Biology" id="" class="form-control" placeholder="Biology" aria-describedby="helpId">
+            <label  for="Biology">Biology</label>
+            <input type="number" name="grade" id="" class="form-control" placeholder="Biology" aria-describedby="helpId">
             <small id="helpId" class="text-muted">Biology</small>
           </div>
 
 
           <div class="form-group col-4">
-            <label name="Grade" for="Mathematics ">Mathematics </label>
-            <input type="text" name="Mathematics" id=" " class="form-control" placeholder="Mathematics " aria-describedby="helpId">
+            <label  for="Mathematics ">Mathematics </label>
+            <input type="number" name="grade" id=" " class="form-control" placeholder="Mathematics " aria-describedby="helpId">
             <small id="helpId" class="text-muted">Mathematics </small>
           </div>
           <div class="form-group col-4 offset-4">
-            <label name="Grade" for="Computer ">Computer </label>
-            <input type="text" name="Computer" id=" " class="form-control" placeholder="Computer " aria-describedby="helpId">
+            <label  for="Computer ">Computer </label>
+            <input type="number" name="grade" id=" " class="form-control" placeholder="Computer " aria-describedby="helpId">
             <small id="helpId" class="text-muted">Computer </small>
           </div>
           <button class="btn btn-primary offset-3 w-50">Claculate The Grade</button>
         </form>
-        <?= $res++  ?>
+        <?php echo $res ?? "" ?>
       </div>
     </div>
   </div>
