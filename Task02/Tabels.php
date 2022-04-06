@@ -1,11 +1,4 @@
 <?php 
-
-// dynamic table
-// dynamic rows
-// dynamic columns
-// check if gender of user == m ==> male
-// check if gender of user == f ==> female
-
 $users = [
     (object)[
         'id' => 1,
