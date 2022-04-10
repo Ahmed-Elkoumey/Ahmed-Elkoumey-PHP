@@ -3,18 +3,26 @@ session_start();
 // include_once "number.php";
 
 
-    if (isset($value)) {
-     $value = $_SESSION['reviews'];
+if (isset($_POST)) {
 
 
 
 
 
-      
-   
+    //     foreach ($_POST as $k => $value) {
+
+    //         print_r($value);
+    // //  $_SESSION['reviews'];
+    //     }
+
+
+
+
+
+
 
 }
- 
+
 ?>
 
 
@@ -32,6 +40,10 @@ session_start();
 </head>
 
 <body>
+<div class="col-12 text-center mt-5 text-primary">
+                <i class="fa fa-hospital-o text-primary" style="font-size:60px" ></i>
+                <h1>Please Tell us Your Review About The Hospital</h1>
+            </div>
 
 
     <form method="POST">
@@ -44,45 +56,45 @@ session_start();
             </thead>
 
             <tbody>
-               
-                    <tr>
-                        <th scope="row">Are you satisfied with the level of hygiene?</th>
-                        
 
-                            <td><?= $_SESSION['reviews'] ;?></td>
+                <tr>
+                    <th scope="row">Are you satisfied with the level of hygiene?</th>
 
-                    </tr>
 
-                    <tr>
-                        <th scope="row">Are you satisfied with the prices of services?</th>
-                       
-                            <td><?= $_SESSION['reviews'] ; ?></td>
-              
-                    </tr>
+                    <td><?= $_POST['hygiene']; ?></td>
 
-                    <tr>
-                        <th scope="row">Are you satisfied with the nursing service?</th>
+                </tr>
 
-                       
-                            <td><?= $_SESSION['reviews']; ?></td>
-                    
+                <tr>
+                    <th scope="row">Are you satisfied with the prices of services?</th>
 
-                    </tr>
-                    <tr>
-                        <th scope="row">Are you satisfied with the level of doctors?</th>
-                      
-                            <td><?= $_SESSION['reviews']; ?></td>
-                 
+                    <td><?= $_POST['prices']; ?></td>
 
-                    </tr>
-                    <tr>
-                        <th scope="row">Are you satisfied with the calm at the hospital?</th>
-                        
-                            <td><?= $_SESSION['reviews'] ; ?></td>
-                    
+                </tr>
 
-                    </tr>
-             
+                <tr>
+                    <th scope="row">Are you satisfied with the nursing service?</th>
+
+
+                    <td><?= $_POST['nursing']; ?></td>
+
+
+                </tr>
+                <tr>
+                    <th scope="row">Are you satisfied with the level of doctors?</th>
+
+                    <td><?= $_POST['doctors']; ?></td>
+
+
+                </tr>
+                <tr>
+                    <th scope="row">Are you satisfied with the calm at the hospital?</th>
+
+                    <td><?= $_POST['calm']; ?></td>
+
+
+                </tr>
+
             </tbody>
         </table>
 
@@ -91,8 +103,8 @@ session_start();
 
         echo
         "
-<div class='alert alert-danger'>
-{$_SESSION['num']}</div>";
+<div class='alert alert-success text-center'>
+Thank You {$_SESSION['num']}</div>";
         ?>
     </form>
 

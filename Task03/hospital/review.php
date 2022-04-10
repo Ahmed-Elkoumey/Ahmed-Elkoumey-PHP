@@ -7,15 +7,14 @@ session_start();
 //   http_response_code(405);
 //   die;
 // }
-
-foreach ($_POST as $value) {
+foreach ($_POST as $k => $value) {
 
 if (isset($value)) {
   // $_POST=["nursing" ,"hygiene","prices","doctors","calm"];
 
-  $_SESSION['reviews']=$value ;
+  $_SESSION['reviews']=$k ;
 
-  echo $value;
+  print_r($k);
   
   
 }
