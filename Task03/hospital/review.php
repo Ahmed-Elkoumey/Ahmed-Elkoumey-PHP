@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 
 // if ($_SERVER['REQUEST_METHOD'] === "GET") {
 //   echo "<h1>Error 405 Method Not Allowed </h1>";
@@ -6,23 +8,23 @@
 //   die;
 // }
 
+foreach ($_POST as $value) {
 
-if (isset($_POST['hygiene'])) {
+if (isset($value)) {
+  // $_POST=["nursing" ,"hygiene","prices","doctors","calm"];
 
-  $reviews = [
-    'hygiene' => [
-      'bad', 'good', 'very Good', 'Excellent'
-    ],
+  $_SESSION['reviews']=$value ;
 
-
-
-  ];
-
-  $_SESSION['review'] = $reviews['hygiene'];
-
-  header('location:result.php');
-  die;
+  echo $value;
+  
+  
 }
+}
+//   // header('location:result.php');
+//   // die;
+// }
+
+
 ?>
 
 
@@ -50,7 +52,7 @@ if (isset($_POST['hygiene'])) {
   </div>
   </div>
 
-  <form method="POST">
+  <form action="result.php" method="POST">
     <table class="table table-striped">
       <thead>
         <tr>
