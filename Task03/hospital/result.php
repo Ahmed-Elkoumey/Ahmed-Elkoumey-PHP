@@ -1,27 +1,43 @@
 <?php
 session_start();
-// include_once "number.php";
 
 
-if (isset($_POST)) {
-
-
+// if (isset($_POST)) {
 
 
 
-    //     foreach ($_POST as $k => $value) {
+$result =0;
 
-    //         print_r($value);
-    // //  $_SESSION['reviews'];
-    //     }
+foreach ($_POST as  $ansewr) {
 
-
-
-
-
+if($ansewr =='Bad'){
+    $result +=0;
+}elseif($ansewr =='good'){
+    $result +=3;
+}elseif($ansewr =='very Good'){
+    $result +=5;
+}elseif($ansewr =='Excellent'){
+    $result +=10;
+}
 
 
 }
+
+if($result>=25){
+    $message="<div class='alert alert-success text-center'> Your Total Reviews IS (Good) <br> Thank You</div>";
+}else{
+    $message ="<div class='alert alert-danger text-center'> Your Total Reviews IS (Bad) <br> We'r Sorry About Your Experince And We Will Call You on Your Number ({$_SESSION['num']})</div>";
+}
+
+
+
+
+
+
+
+
+
+
 
 ?>
 
@@ -40,11 +56,6 @@ if (isset($_POST)) {
 </head>
 
 <body>
-<div class="col-12 text-center mt-5 text-primary">
-                <i class="fa fa-hospital-o text-primary" style="font-size:60px" ></i>
-                <h1>Please Tell us Your Review About The Hospital</h1>
-            </div>
-
 
     <form method="POST">
         <table class="table table-striped">
@@ -98,14 +109,7 @@ if (isset($_POST)) {
             </tbody>
         </table>
 
-        <?php
-
-
-        echo
-        "
-<div class='alert alert-success text-center'>
-Thank You {$_SESSION['num']}</div>";
-        ?>
+        <?php echo $message;?>
     </form>
 
 
