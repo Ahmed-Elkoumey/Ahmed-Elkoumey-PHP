@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2022 at 01:22 AM
+-- Generation Time: Apr 18, 2022 at 01:39 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -191,6 +191,7 @@ CREATE TABLE `products` (
   `name_ar` varchar(32) NOT NULL,
   `desc_en` text NOT NULL,
   `desc_ar` text NOT NULL,
+  `image` varchar(255) NOT NULL DEFAULT 'default.png',
   `quantity` int(10) UNSIGNED DEFAULT 1,
   `status` tinyint(1) DEFAULT 1 COMMENT '1=> ACTIVE|| 0 => HIDE',
   `code` bigint(20) UNSIGNED DEFAULT NULL,
@@ -276,9 +277,13 @@ CREATE TABLE `sub_ctaeories` (
 
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(32) NOT NULL,
+  `firat_name` varchar(32) NOT NULL,
+  `last_name` varchar(32) NOT NULL,
   `email` varchar(20) NOT NULL,
   `password` varchar(10) NOT NULL,
+  `image` varchar(255) NOT NULL DEFAULT 'default.png',
+  `gender` enum('m','f') NOT NULL,
+  `phone` varchar(11) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 1 COMMENT '1=>active || 0=> hide',
   `verfication_code` tinyint(4) NOT NULL,
   `email_verified_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -420,7 +425,8 @@ ALTER TABLE `sub_ctaeories`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `verfication_code` (`verfication_code`);
+  ADD UNIQUE KEY `verfication_code` (`verfication_code`),
+  ADD UNIQUE KEY `phone` (`phone`);
 
 --
 -- Indexes for table `whlists`
