@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 16, 2022 at 10:07 PM
+-- Generation Time: Apr 18, 2022 at 01:22 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -53,6 +53,22 @@ CREATE TABLE `admins` (
   `password` varchar(20) NOT NULL,
   `gender` enum('m','f') NOT NULL,
   `status` tinyint(1) DEFAULT 1 COMMENT '1 => active || 0 => hide',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `brands`
+--
+
+CREATE TABLE `brands` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name_en` varchar(32) NOT NULL,
+  `name_ar` varchar(32) NOT NULL,
+  `image` varchar(250) DEFAULT 'default.bng',
+  `status` tinyint(1) DEFAULT 1 COMMENT '1=>active || 0=>hide',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -159,7 +175,7 @@ CREATE TABLE `order_product` (
 
 CREATE TABLE `payment_methods` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `type` tinyint(1) DEFAULT 1 COMMENT '1=> ''Cahs'' || 0=>''visa'''
+  `type` enum('cash','visa') DEFAULT NULL COMMENT '1=> ''Cahs'' || 0=>''visa'''
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -171,27 +187,17 @@ CREATE TABLE `payment_methods` (
 CREATE TABLE `products` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `price` decimal(8,2) UNSIGNED NOT NULL,
-  `NAME_EN` varchar(32) NOT NULL,
-  `NAME_AR` varchar(32) NOT NULL,
-  `DESC_EN` text NOT NULL,
-  `DESC_AR` text NOT NULL,
-  `QUANTITY` int(10) UNSIGNED DEFAULT 1,
-  `STATUS` tinyint(1) DEFAULT 1 COMMENT '1=> ACTIVE|| 0 => HIDE',
-  `CODE` bigint(20) UNSIGNED DEFAULT NULL,
+  `name_en` varchar(32) NOT NULL,
+  `name_ar` varchar(32) NOT NULL,
+  `desc_en` text NOT NULL,
+  `desc_ar` text NOT NULL,
+  `quantity` int(10) UNSIGNED DEFAULT 1,
+  `status` tinyint(1) DEFAULT 1 COMMENT '1=> ACTIVE|| 0 => HIDE',
+  `code` bigint(20) UNSIGNED DEFAULT NULL,
   `sub_ctaeories_id` bigint(20) UNSIGNED NOT NULL,
-  `CREATED_AT` timestamp NOT NULL DEFAULT current_timestamp(),
-  `UPDATED_AT` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `product_multi_images`
---
-
-CREATE TABLE `product_multi_images` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `product_id` bigint(20) UNSIGNED DEFAULT NULL
+  `brand_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -311,6 +317,12 @@ ALTER TABLE `admins`
   ADD UNIQUE KEY `email` (`email`);
 
 --
+-- Indexes for table `brands`
+--
+ALTER TABLE `brands`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
@@ -365,14 +377,8 @@ ALTER TABLE `payment_methods`
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `sub_ctaeories_id` (`sub_ctaeories_id`),
-  ADD UNIQUE KEY `CODE` (`CODE`);
-
---
--- Indexes for table `product_multi_images`
---
-ALTER TABLE `product_multi_images`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `product_id` (`product_id`);
+  ADD UNIQUE KEY `brand_id` (`brand_id`),
+  ADD UNIQUE KEY `CODE` (`code`);
 
 --
 -- Indexes for table `product_spec`
@@ -470,12 +476,6 @@ ALTER TABLE `products`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `product_multi_images`
---
-ALTER TABLE `product_multi_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `regions`
 --
 ALTER TABLE `regions`
@@ -536,13 +536,8 @@ ALTER TABLE `order_product`
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`sub_ctaeories_id`) REFERENCES `sub_ctaeories` (`id`);
-
---
--- Constraints for table `product_multi_images`
---
-ALTER TABLE `product_multi_images`
-  ADD CONSTRAINT `product_multi_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`sub_ctaeories_id`) REFERENCES `sub_ctaeories` (`id`),
+  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`brand_id`) REFERENCES `brands` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product_spec`
