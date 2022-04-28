@@ -1,5 +1,5 @@
 <?php
-namespace Myapp\Data\Contract;
+namespace src\Data\Contract;
 
 
 

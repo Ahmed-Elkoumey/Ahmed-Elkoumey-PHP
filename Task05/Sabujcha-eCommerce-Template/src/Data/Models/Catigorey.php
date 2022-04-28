@@ -1,8 +1,8 @@
 <?php
 
-namespace Myapp\Data\Models;
+namespace src\Data\Models;
 
-use Myapp\Data\Contract\Crud as ContractCrud;
+use src\Data\Contract\Crud as ContractCrud;
 // use Myapp\Data\Configration\DataBsaeConnect;
 use src\Data\configration\DataBsaeConnect;
 
